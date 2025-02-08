@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rick_and_morty_app/core/app_assets.dart';
 import 'package:rick_and_morty_app/routes/branches/base_branch.dart';
 
 import 'package:rick_and_morty_app/routes/branches/favorites_branch.dart';
@@ -85,14 +87,20 @@ enum AppShellBranch {
   Widget icon() {
     switch (this) {
       case AppShellBranch.home:
-        // TODO: Update with your custom icons
-        return const Icon(Icons.check_box_outline_blank, color: Colors.grey);
+        return SvgPicture.asset(
+          AppAssets.homeIcon,
+          colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+        );
       case AppShellBranch.search:
-        // TODO: Update with your custom icons
-        return const Icon(Icons.check_box_outline_blank, color: Colors.grey);
+        return SvgPicture.asset(
+          AppAssets.searchIcon,
+          colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+        );
       case AppShellBranch.favorites:
-        // TODO: Update with your custom icons
-        return const Icon(Icons.check_box_outline_blank, color: Colors.grey);
+        return SvgPicture.asset(
+          AppAssets.favoriteIcon,
+          colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+        );
     }
   }
 
@@ -101,14 +109,20 @@ enum AppShellBranch {
   Widget activeIcon() {
     switch (this) {
       case AppShellBranch.home:
-        // TODO: Update with your custom icons
-        return const Icon(Icons.check_box_outline_blank, color: Colors.blue);
+        return SvgPicture.asset(
+          AppAssets.homeIcon,
+          colorFilter: const ColorFilter.mode(Colors.blue, BlendMode.srcIn),
+        );
       case AppShellBranch.search:
-        // TODO: Update with your custom icons
-        return const Icon(Icons.check_box_outline_blank, color: Colors.blue);
+        return SvgPicture.asset(
+          AppAssets.searchIcon,
+          colorFilter: const ColorFilter.mode(Colors.blue, BlendMode.srcIn),
+        );
       case AppShellBranch.favorites:
-        // TODO: Update with your custom icons
-        return const Icon(Icons.check_box_outline_blank, color: Colors.blue);
+        return SvgPicture.asset(
+          AppAssets.favoriteIcon,
+          colorFilter: const ColorFilter.mode(Colors.blue, BlendMode.srcIn),
+        );
     }
   }
 

@@ -28,7 +28,6 @@ class HomeShellBranch implements AppBaseShellBranch {
 
   @override
   List<RouteBase> rootRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
-    // TODO: implement getRootRoutes
     throw UnimplementedError();
   }
 }

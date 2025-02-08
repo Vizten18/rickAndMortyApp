@@ -10,6 +10,7 @@ void main() {
       routerConfig: AppRouter.router(debug: true),
       characterRepository: CharacterRepository(
         characterApi: RickAndMortyApiRest(),
+        sharedPreferencesApi: SharedPreferencesApi(),
       ),
     ),
   );

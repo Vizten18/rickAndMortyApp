@@ -1,3 +1,5 @@
+// ignore_for_file: cascade_invocations
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:rick_and_morty_app/core/errors/character_error.dart';
@@ -10,9 +12,13 @@ class CharacterDetailBloc
     extends Bloc<CharacterDetailEvent, CharacterDetailState> {
   CharacterDetailBloc({
     required GetCharacterById getCharacterById,
+    required LikeCharacter likeCharacter,
+    required DislikeCharacter dislikeCharacter,
     required int characterId,
     required String characterImage,
   })  : _getCharacterById = getCharacterById,
+        _likeCharacter = likeCharacter,
+        _dislikeCharacter = dislikeCharacter,
         super(
           CharacterDetailState(
             characterImage: characterImage,
@@ -25,6 +31,8 @@ class CharacterDetailBloc
   }
 
   final GetCharacterById _getCharacterById;
+  final LikeCharacter _likeCharacter;
+  final DislikeCharacter _dislikeCharacter;
 
   Future<void> _onStart(
     CharacterDetailOnStart event,
@@ -58,10 +66,27 @@ class CharacterDetailBloc
     CharacterDetailOnLikePressed event,
     Emitter<CharacterDetailState> emit,
   ) async {
-    emit(
-      state.copyWith(
-        character: state.character.copyWith(liked: !state.character.liked),
-      ),
+    final isLiked = state.character.liked;
+    final result = isLiked
+        ? await _dislikeCharacter.execute(state.characterId)
+        : await _likeCharacter.execute(state.characterId);
+
+    result.resolve(
+      (_) {
+        emit(
+          state.copyWith(
+            character: state.character.copyWith(liked: !isLiked),
+          ),
+        );
+      },
+      (error) {
+        emit(
+          state.copyWith(
+            status: CharacterDetailStatus.failure,
+            error: error,
+          ),
+        );
+      },
     );
   }
 }

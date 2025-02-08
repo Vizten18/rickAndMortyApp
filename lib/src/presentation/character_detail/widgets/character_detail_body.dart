@@ -19,6 +19,9 @@ class CharacterDetailBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CharacterDetailBloc, CharacterDetailState>(
+      buildWhen: (previous, current) =>
+          previous.status != current.status ||
+          previous.character.liked != current.character.liked,
       builder: (context, state) {
         if (state.status.isFailure) {
           return CharacterErrorBuilder(

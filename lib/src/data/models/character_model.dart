@@ -34,4 +34,16 @@ class CharacterModel extends Character {
       gender: super.gender,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'status': status.toString(),
+      'type': type,
+      'image': image,
+      'gender': gender.toString(),
+      'liked': liked,
+    };
+  }
 }

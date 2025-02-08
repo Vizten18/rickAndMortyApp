@@ -10,16 +10,28 @@ import 'package:rick_and_morty_app/src/domain/repositories/repositories.dart';
 class CharacterRepository extends ICharacterRepository {
   CharacterRepository({
     required ICharacterApi characterApi,
-  }) : _characterApi = characterApi;
+    required SharedPreferencesApi sharedPreferencesApi,
+  })  : _characterApi = characterApi,
+        _sharedPreferencesApi = sharedPreferencesApi;
 
   final ICharacterApi _characterApi;
+  final SharedPreferencesApi _sharedPreferencesApi;
   final String source = 'CharacterRepository';
+
   @override
   Future<Result<Character, CharacterError>> getCharacterById({
     required int id,
   }) async {
     log('📡 Trying to get character by id', name: '$source.getCharacterById');
-    return _characterApi.getCharacterById(id: id);
+    final result = await _characterApi.getCharacterById(id: id);
+    if (result is Success) {
+      final isLiked = await _sharedPreferencesApi.isCharacterLiked(id);
+      final character = result.data?.copyWith(liked: isLiked);
+      return Success(
+        character ?? const Character.empty(),
+      );
+    }
+    return result;
   }
 
   @override
@@ -28,5 +40,21 @@ class CharacterRepository extends ICharacterRepository {
   }) async {
     log('📡 Trying to get characters', name: '$source.getCharacters');
     return _characterApi.getCharacters(page: page);
+  }
+
+  @override
+  Future<Result<void, CharacterError>> likeCharacter({
+    required int id,
+  }) async {
+    log('📡 Trying to like character', name: '$source.likeCharacter');
+    return _sharedPreferencesApi.likeCharacter(id);
+  }
+
+  @override
+  Future<Result<void, CharacterError>> unlikeCharacter({
+    required int id,
+  }) async {
+    log('📡 Trying to unlike character', name: '$source.unlikeCharacter');
+    return _sharedPreferencesApi.unlikeCharacter(id);
   }
 }

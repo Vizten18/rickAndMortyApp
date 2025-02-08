@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty_app/routes/branches/base_branch.dart';
 import 'package:rick_and_morty_app/routes/indexes/home_index.dart';
 import 'package:rick_and_morty_app/routes/shell_branches.dart';
+import 'package:rick_and_morty_app/src/presentation/character_detail/character_detail.dart';
 
 class HomeShellBranch implements AppBaseShellBranch {
   HomeShellBranch() : navigatorKey = GlobalKey<NavigatorState>();
@@ -22,12 +23,25 @@ class HomeShellBranch implements AppBaseShellBranch {
         GoRoute(
           name: AppShellBranch.home.routeName,
           path: AppShellBranch.home.path,
-          pageBuilder: (_, __) => const NoTransitionPage(child: IndexHome()),
+          pageBuilder: (_, __) => const NoTransitionPage(
+            child: IndexHome(),
+          ),
         ),
       ];
 
   @override
   List<RouteBase> rootRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
-    throw UnimplementedError();
+    return [
+      GoRoute(
+        parentNavigatorKey: rootNavigatorKey,
+        path: '${AppShellBranch.home.path}/${CharacterDetailPage.routeName}',
+        builder: (context, state) {
+          final queryParameters = state.uri.queryParameters;
+          final params = CharacterDetailParams.fromMap(queryParameters);
+
+          return CharacterDetailPage(params: params);
+        },
+      ),
+    ];
   }
 }

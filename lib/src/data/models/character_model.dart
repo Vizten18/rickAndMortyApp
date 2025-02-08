@@ -8,6 +8,7 @@ class CharacterModel extends Character {
     required super.status,
     required super.type,
     required super.image,
+    required super.gender,
   });
 
   factory CharacterModel.fromMap(Map<String, dynamic> data) {
@@ -18,6 +19,8 @@ class CharacterModel extends Character {
           .toEntity(),
       type: data['type'] as String? ?? '',
       image: data['image'] as String? ?? '',
+      gender: GenderTypeModel.fromServer(data['gender'] as String? ?? '')
+          .toEntity(),
     );
   }
 
@@ -28,6 +31,7 @@ class CharacterModel extends Character {
       status: super.status,
       type: super.type,
       image: super.image,
+      gender: super.gender,
     );
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars, missing_whitespace_between_adjacent_strings
+
 class Constants {
   /// Grid system's base value. The project uses an 8 point grid system.
   ///
@@ -40,4 +42,16 @@ class Constants {
   static const pieChartWidth = 110.0;
 
   static const piecChartHeight = 110.0;
+
+  static const loremIpsum =
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
+      'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
+      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. '
+      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. '
+      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
+      'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
+      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. '
+      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. '
+      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 }

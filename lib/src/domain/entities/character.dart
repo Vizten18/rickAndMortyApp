@@ -9,6 +9,8 @@ class Character extends Equatable {
   final CharacterStatus status;
   final String type;
   final String image;
+  final GenderType gender;
+  final bool liked;
 
   const Character({
     required this.id,
@@ -16,6 +18,8 @@ class Character extends Equatable {
     required this.status,
     required this.type,
     required this.image,
+    required this.gender,
+    this.liked = false,
   });
 
   @override
@@ -25,6 +29,8 @@ class Character extends Equatable {
         status,
         type,
         image,
+        gender,
+        liked,
       ];
 
   const Character.empty()
@@ -32,7 +38,9 @@ class Character extends Equatable {
         name = '',
         status = CharacterStatus.none,
         type = '',
-        image = '';
+        image = '',
+        gender = GenderType.unknown,
+        liked = false;
 
   Character copyWith({
     int? id,
@@ -40,6 +48,8 @@ class Character extends Equatable {
     CharacterStatus? status,
     String? type,
     String? image,
+    GenderType? gender,
+    bool? liked,
   }) {
     return Character(
       id: id ?? this.id,
@@ -47,6 +57,8 @@ class Character extends Equatable {
       status: status ?? this.status,
       type: type ?? this.type,
       image: image ?? this.image,
+      gender: gender ?? this.gender,
+      liked: liked ?? this.liked,
     );
   }
 }

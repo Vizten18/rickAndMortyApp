@@ -76,6 +76,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         emit(
           state.copyWith(
             status: HomeStatus.failure,
+            error: result.error,
           ),
         );
       },
@@ -86,7 +87,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeOnScrollEndReached event,
     Emitter<HomeState> emit,
   ) async {
-    if (state.paginationStatus.isLoading || state.pageInfo?.nextPage == null) return;
+    if (state.paginationStatus.isLoading || state.pageInfo?.nextPage == null)
+      return;
 
     emit(state.copyWith(paginationStatus: HomeStatus.loading));
 
@@ -108,6 +110,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         emit(
           state.copyWith(
             paginationStatus: HomeStatus.failure,
+            error: result.error,
           ),
         );
       },

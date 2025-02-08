@@ -1,9 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty_app/core/constants.dart';
 import 'package:rick_and_morty_app/core/helpers/custom_effects.dart';
+import 'package:rick_and_morty_app/core/utils/navigation_path_helper.dart';
 import 'package:rick_and_morty_app/src/domain/entities/entities.dart';
+import 'package:rick_and_morty_app/src/presentation/character_detail/character_detail.dart';
 import 'package:rick_and_morty_app/src/widgets/widgets.dart';
 
 class CharacterCard extends StatelessWidget {
@@ -21,7 +24,16 @@ class CharacterCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(Constants.defaultRadius),
         child: InkWell(
           borderRadius: BorderRadius.circular(Constants.defaultRadius),
-          onTap: () {},
+          onTap: () {
+            final pathPrefix = NavigationUtils.getCurrentPathPrefix(context);
+            final params = CharacterDetailParams(
+              characterId: character.id,
+              characterImage: character.image,
+              pathPrefix: pathPrefix,
+            );
+            final path = CharacterDetailPage.generatePath(params);
+            context.push(path);
+          },
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: Constants.padding * 7,
@@ -31,7 +43,10 @@ class CharacterCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Align(
-                  child: EasyImage(imageUrl: character.image),
+                  child: Hero(
+                    tag: character.id,
+                    child: EasyImage(imageUrl: character.image),
+                  ),
                 ),
                 const SizedBox(height: Constants.padding),
                 Text(

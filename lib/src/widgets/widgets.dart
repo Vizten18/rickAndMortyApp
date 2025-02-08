@@ -4,3 +4,6 @@ export 'character_error_builder.dart';
 export 'character_status_text_builder.dart';
 export 'easy_image.dart';
 export 'error_title_and_subtitle.dart';
+export 'gender_widget_builder.dart';
+export 'go_back_button.dart';
+export 'liked_button.dart';

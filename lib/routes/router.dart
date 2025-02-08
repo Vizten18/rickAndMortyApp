@@ -1,7 +1,6 @@
-// ignore_for_file: lines_longer_than_80_chars
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rick_and_morty_app/routes/branches/home_branch.dart';
 import 'package:rick_and_morty_app/routes/index.dart';
 import 'package:rick_and_morty_app/routes/shell_branches.dart';
 
@@ -30,21 +29,15 @@ class AppRouter {
             parentNavigatorKey: rootNavigatorKey,
             branches: AppStatefulShellBranches.branches,
             builder: (_, routerState, child) {
-              // TODO: Handle routing to the correct page based on the current state.
-              // NOTE: Here, you might want to check if the user is authenticated and route to the correct page. By default, we're routing to the index page that handles the bottom navigation bar routing.
               return IndexNavigationPage(
                 routerState: routerState,
                 child: child,
               );
             },
           ),
+          ...HomeShellBranch().rootRoutes(rootNavigatorKey),
 
-          // TODO: Add root routes here. Root routes are the routes or pages that are outside of the bottom navigation bar shell. Typically authentication (sign up and sign in), splash, and onboarding pages.
-          // GoRoute(
-          //   parentNavigatorKey: rootNavigatorKey,
-          //   path: SplashPage.path,
-          //   builder: (context, state) => const SplashPage(),
-          // ),
+          // Add other root routes here.
         ],
       );
 }

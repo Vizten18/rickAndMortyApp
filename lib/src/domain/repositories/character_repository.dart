@@ -19,4 +19,14 @@ abstract class ICharacterRepository {
   Future<Result<Character, CharacterError>> getCharacterById({
     required int id,
   });
+
+  /// Likes a character by its [id].
+  /// return a [Result<void, CharacterError>] on success or failure.
+  Future<Result<void, CharacterError>> likeCharacter({required int id});
+
+  /// Unlikes a character by its [id].
+  /// return a [Result<void, CharacterError>] on success or failure.
+  Future<Result<void, CharacterError>> unlikeCharacter({
+    required int id,
+  });
 }

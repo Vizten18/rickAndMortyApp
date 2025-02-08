@@ -69,6 +69,12 @@ class CharacterDetailPage extends StatelessWidget {
         getCharacterById: GetCharacterById(characterRepository: context.read()),
         characterId: params.characterId,
         characterImage: params.characterImage,
+        likeCharacter: LikeCharacter(
+          characterRepository: context.read(),
+        ),
+        dislikeCharacter: DislikeCharacter(
+          characterRepository: context.read(),
+        ),
       ),
       child: const Scaffold(
         body: CharacterDetailView(),

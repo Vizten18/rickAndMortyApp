@@ -1,7 +1,9 @@
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
-    }
+    "internetConnectionLostTitle": "Internet connection lost",
+    "internetConnectionLostSubtitle": "Please check your internet connection and try again.",
+    "notFoundTitle": "Character not found.",
+    "notFoundSubtitle": "The character you are looking for does not exist.",
+    "unexpectedErrorTitle": "An unexpected error occurred. Please try again.",
+    "unexpectedErrorSubtitle": "If the problem persists, please contact support."
 }

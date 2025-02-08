@@ -1,7 +1,9 @@
 {
     "@@locale": "es",
-    "counterAppBarTitle": "Contador",
-    "@counterAppBarTitle": {
-        "description": "Texto mostrado en la AppBar de la página del contador"
-    }
+    "internetConnectionLostTitle": "Conexión a internet perdida",
+    "internetConnectionLostSubtitle": "Por favor, verifique su conexión a internet y vuelva a intentarlo.",
+    "notFoundTitle": "Personaje no encontrado.",
+    "notFoundSubtitle": "El personaje que busca no existe.",
+    "unexpectedErrorTitle": "Ocurrió un error inesperado. Por favor, inténtelo de nuevo.",
+    "unexpectedErrorSubtitle": "Si el problema persiste, por favor contacte al soporte."
 }

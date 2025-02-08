@@ -1,5 +1,9 @@
+// ignore_for_file: curly_braces_in_flow_control_structures, lines_longer_than_80_chars
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
+import 'package:rick_and_morty_app/core/errors/character_error.dart';
 import 'package:rick_and_morty_app/src/domain/entities/entities.dart';
 import 'package:rick_and_morty_app/src/domain/use_cases/use_cases.dart';
 
@@ -42,6 +46,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         emit(
           state.copyWith(
             status: HomeStatus.failure,
+            error: result.error,
           ),
         );
       },
@@ -81,9 +86,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeOnScrollEndReached event,
     Emitter<HomeState> emit,
   ) async {
-    emit(state.copyWith(status: HomeStatus.initial));
-    
-    if (state.pageInfo?.nextPage == null) return;
+    if (state.paginationStatus.isLoading || state.pageInfo?.nextPage == null) return;
+
+    emit(state.copyWith(paginationStatus: HomeStatus.loading));
 
     final nextPage = state.currentPage + 1;
     final result = await _getCharacters.execute(nextPage);
@@ -92,7 +97,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       (data) {
         emit(
           state.copyWith(
-            status: HomeStatus.success,
+            paginationStatus: HomeStatus.success,
             characters: List.of(state.characters)..addAll(data.items),
             pageInfo: data.pageInfo,
             currentPage: nextPage,
@@ -102,7 +107,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       (error) {
         emit(
           state.copyWith(
-            status: HomeStatus.failure,
+            paginationStatus: HomeStatus.failure,
           ),
         );
       },

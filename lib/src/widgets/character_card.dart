@@ -17,48 +17,55 @@ class CharacterCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(Constants.margin),
-      padding: const EdgeInsets.symmetric(
-        horizontal: Constants.padding * 7,
-        vertical: Constants.padding * 2,
-      ),
-      decoration: BoxDecoration(
-        color: Colors.white,
+      child: Material(
         borderRadius: BorderRadius.circular(Constants.defaultRadius),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Align(child: EasyImage(imageUrl: character.image)),
-          const SizedBox(height: Constants.padding),
-          Text(
-            character.name,
-            style: const TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(Constants.defaultRadius),
+          onTap: () {},
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: Constants.padding * 7,
+              vertical: Constants.padding * 2,
             ),
-          ).animate(
-            effects: CustomEffects.comingDown(delay: 150),
-          ),
-          CharacterStatusTextBuilder(status: character.status),
-          Row(
-            children: [
-              Visibility(
-                visible: character.type.isNotEmpty,
-                child: Expanded(
-                  child: AutoSizeText(
-                    'Type: ${character.type}',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                    ),
-                  ).animate(
-                    effects: CustomEffects.comingDown(delay: 350),
-                  ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  child: EasyImage(imageUrl: character.image),
                 ),
-              ),
-            ],
+                const SizedBox(height: Constants.padding),
+                Text(
+                  character.name,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ).animate(
+                  effects: CustomEffects.comingDown(delay: 150),
+                ),
+                CharacterStatusTextBuilder(status: character.status),
+                Row(
+                  children: [
+                    Visibility(
+                      visible: character.type.isNotEmpty,
+                      child: Expanded(
+                        child: AutoSizeText(
+                          'Type: ${character.type}',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
+                          ),
+                        ).animate(
+                          effects: CustomEffects.comingDown(delay: 350),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ],
+        ),
       ),
     );
   }

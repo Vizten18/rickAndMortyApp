@@ -7,20 +7,25 @@ class EasyImage extends StatelessWidget {
   const EasyImage({
     required this.imageUrl,
     this.height = 290,
+    this.width,
+    this.isCircle = false,
     super.key,
-
   });
 
   final String imageUrl;
   final double height;
+  final double? width;
+  final bool isCircle;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: height,
-      width: double.infinity,
+      width: width ?? double.infinity,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(Constants.defaultRadius),
+        borderRadius: isCircle
+            ? BorderRadius.circular(height / 2)
+            : BorderRadius.circular(Constants.defaultRadius),
         child: CachedNetworkImage(
           imageUrl: imageUrl,
           fit: BoxFit.cover,

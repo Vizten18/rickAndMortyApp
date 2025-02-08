@@ -60,14 +60,18 @@ class CharacterDetailBody extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Text(
-                            state.character.name,
-                            style: const TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
+                          Expanded(
+                            flex: 3,
+                            child: AutoSizeText(
+                              state.character.name,
+                              style: const TextStyle(
+                                fontSize: 32,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              maxLines: 2,
+                            ).animate(
+                              effects: CustomEffects.slideInFromLeft(),
                             ),
-                          ).animate(
-                            effects: CustomEffects.slideInFromLeft(),
                           ),
                           const Spacer(),
                           LikedButton(

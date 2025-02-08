@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rick_and_morty_app/routes/branches/favorites_branch.dart';
 import 'package:rick_and_morty_app/routes/branches/home_branch.dart';
 import 'package:rick_and_morty_app/routes/index.dart';
 import 'package:rick_and_morty_app/routes/shell_branches.dart';
@@ -36,6 +37,7 @@ class AppRouter {
             },
           ),
           ...HomeShellBranch().rootRoutes(rootNavigatorKey),
+          ...FavoritesShellBranch().rootRoutes(rootNavigatorKey),
 
           // Add other root routes here.
         ],

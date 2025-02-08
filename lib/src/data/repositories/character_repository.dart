@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:rick_and_morty_app/core/errors/character_error.dart';
@@ -17,6 +18,21 @@ class CharacterRepository extends ICharacterRepository {
   final ICharacterApi _characterApi;
   final SharedPreferencesApi _sharedPreferencesApi;
   final String source = 'CharacterRepository';
+
+  // Streams
+  final _likeCharacterStreamController =
+      StreamController<Character>.broadcast();
+  final _dislikeCharacterStreamController = StreamController<int>.broadcast();
+
+  @override
+  Stream<Character> get characters => _likeCharacterStreamController.stream;
+  Stream<int> get dislikedCharacters =>
+      _dislikeCharacterStreamController.stream;
+
+  void Function(Character) get _likeCharactersSink =>
+      _likeCharacterStreamController.sink.add;
+  void Function(int) get _dislikeCharactersSink =>
+      _dislikeCharacterStreamController.sink.add;
 
   @override
   Future<Result<Character, CharacterError>> getCharacterById({
@@ -44,10 +60,11 @@ class CharacterRepository extends ICharacterRepository {
 
   @override
   Future<Result<void, CharacterError>> likeCharacter({
-    required int id,
+    required Character character,
   }) async {
     log('📡 Trying to like character', name: '$source.likeCharacter');
-    return _sharedPreferencesApi.likeCharacter(id);
+    _likeCharactersSink(character);
+    return _sharedPreferencesApi.likeCharacter(character);
   }
 
   @override
@@ -55,6 +72,31 @@ class CharacterRepository extends ICharacterRepository {
     required int id,
   }) async {
     log('📡 Trying to unlike character', name: '$source.unlikeCharacter');
-    return _sharedPreferencesApi.unlikeCharacter(id);
+    final result = await _sharedPreferencesApi.unlikeCharacter(id);
+    if (result is Success) {
+      _dislikeCharactersSink(id);
+    }
+    return result;
+  }
+
+  @override
+  Future<Result<List<Character>, CharacterError>> getLikedCharacters() async {
+    log(
+      '📡 Trying to get liked characters',
+      name: '$source.getLikedCharacters',
+    );
+    final likedCharacters = await _sharedPreferencesApi.getLikedCharacters();
+    return Success(likedCharacters);
+  }
+
+  @override
+  Future<Result<List<Character>, CharacterError>>
+      getFavoriteCharacters() async {
+    log(
+      '📡 Trying to get favorite characters',
+      name: '$source.getFavoriteCharacters',
+    );
+    final likedCharacters = await _sharedPreferencesApi.getLikedCharacters();
+    return Success(likedCharacters);
   }
 }

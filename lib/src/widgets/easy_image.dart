@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty_app/core/constants.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class EasyImage extends StatelessWidget {
@@ -12,11 +13,18 @@ class EasyImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: imageUrl,
-      fit: BoxFit.cover,
-      placeholder: (context, url) => const BasicSkeleton(),
-      errorWidget: (context, url, error) => const BasicSkeleton(),
+    return SizedBox(
+      height: 290,
+      width: double.infinity,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(Constants.defaultRadius),
+        child: CachedNetworkImage(
+          imageUrl: imageUrl,
+          fit: BoxFit.contain,
+          placeholder: (context, url) => const BasicSkeleton(),
+          errorWidget: (context, url, error) => const BasicSkeleton(),
+        ),
+      ),
     );
   }
 }
@@ -27,9 +35,13 @@ class BasicSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Skeletonizer(
-      child: Container(
-        height: 290,
-        color: Colors.grey[300],
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(Constants.defaultRadius),
+        child: Container(
+          height: 290,
+          width: double.infinity,
+          color: Colors.grey[300],
+        ),
       ),
     );
   }

@@ -23,8 +23,10 @@ class HomePage extends StatelessWidget {
       create: (context) => HomeBloc(
         getCharacters: GetCharacters(characterRepository: context.read()),
       ),
-      child: const Scaffold(
-        body: HomeView(),
+      child: const SafeArea(
+        child: Scaffold(
+          body: HomeView(),
+        ),
       ),
     );
   }

@@ -75,6 +75,12 @@ class RickAndMortyApiRest extends ICharacterApi {
 
       final data = response.data!;
       switch (response.statusCode) {
+        case 404:
+          log(
+            '❌ Characters not found for page: $page',
+            name: '$source.getCharacters',
+          );
+          return Failure(CharacterErrorType.notFound);
         case 200:
           final paginatedData = PaginatedDataModel<CharacterModel>.fromJson(
             data,
@@ -94,7 +100,7 @@ class RickAndMortyApiRest extends ICharacterApi {
       }
     } on DioException catch (e) {
       log(
-        '❌ DioException for characters on page: $page, ${e.message}',
+        '❌ DioException for characters on page: $page, ${e.characterErrorType}',
         name: '$source.getCharacters',
       );
       return Failure(e.characterErrorType);

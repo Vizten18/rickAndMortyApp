@@ -5,6 +5,8 @@ import 'package:rick_and_morty_app/core/errors/base_error.dart';
 
 sealed class CharacterError extends BaseError implements Exception {
   const CharacterError();
+
+  CharacterErrorType get characterErrorType;
 }
 
 enum CharacterErrorType implements CharacterError {
@@ -12,7 +14,10 @@ enum CharacterErrorType implements CharacterError {
   network,
   server,
   client,
-  notFound,
+  notFound;
+
+  @override
+  CharacterErrorType get characterErrorType => this;
 }
 
 extension CharacterErrorExtension on DioException {
@@ -23,8 +28,10 @@ extension CharacterErrorExtension on DioException {
       case DioExceptionType.receiveTimeout:
       case DioExceptionType.connectionError:
         return CharacterErrorType.network;
+      case DioExceptionType.badResponse:
+        return CharacterErrorType.server;
       case DioExceptionType.cancel:
-        return CharacterErrorType.network;
+        return CharacterErrorType.client;
       case DioExceptionType.unknown:
         return CharacterErrorType.unknown;
       default:

@@ -69,7 +69,7 @@ class CharacterDetailBloc
     final isLiked = state.character.liked;
     final result = isLiked
         ? await _dislikeCharacter.execute(state.characterId)
-        : await _likeCharacter.execute(state.characterId);
+        : await _likeCharacter.execute(state.character);
 
     result.resolve(
       (_) {

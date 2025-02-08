@@ -6,6 +6,9 @@ import 'package:rick_and_morty_app/core/interfaces/result.dart';
 import 'package:rick_and_morty_app/src/domain/entities/entities.dart';
 
 abstract class ICharacterRepository {
+  Stream<Character> get characters;
+  Stream<int> get dislikedCharacters;
+
   /// Fetches a list of characters.
   /// return a [PaginatedData<Character>] on success
   /// or a [BaseError] on failure.
@@ -22,11 +25,23 @@ abstract class ICharacterRepository {
 
   /// Likes a character by its [id].
   /// return a [Result<void, CharacterError>] on success or failure.
-  Future<Result<void, CharacterError>> likeCharacter({required int id});
+  Future<Result<void, CharacterError>> likeCharacter({
+    required Character character,
+  });
 
   /// Unlikes a character by its [id].
   /// return a [Result<void, CharacterError>] on success or failure.
   Future<Result<void, CharacterError>> unlikeCharacter({
     required int id,
   });
+
+  /// Get the list of liked characters.
+  /// return a [List<Character>] on success
+  /// or a [BaseError] on failure.
+  Future<Result<List<Character>, CharacterError>> getLikedCharacters();
+
+  /// Get the list of favorite characters.
+  /// return a [List<Character>] on success
+  /// or a [BaseError] on failure.
+  Future<Result<List<Character>, CharacterError>> getFavoriteCharacters();
 }

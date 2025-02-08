@@ -5,5 +5,8 @@
     "notFoundTitle": "Personaje no encontrado.",
     "notFoundSubtitle": "El personaje que busca no existe.",
     "unexpectedErrorTitle": "Ocurrió un error inesperado. Por favor, inténtelo de nuevo.",
-    "unexpectedErrorSubtitle": "Si el problema persiste, por favor contacte al soporte."
+    "unexpectedErrorSubtitle": "Si el problema persiste, por favor contacte al soporte.",
+    "emptyListTitle": "No se encontraron personajes.",
+    "emptyListSubtitle": "No hay personajes para mostrar.",
+    "slideToDelete": "Puede deslizar para eliminar el personaje"
 }

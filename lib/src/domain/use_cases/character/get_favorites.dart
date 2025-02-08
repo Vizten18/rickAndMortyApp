@@ -4,15 +4,19 @@ import 'package:rick_and_morty_app/core/interfaces/use_case.dart';
 import 'package:rick_and_morty_app/src/domain/entities/entities.dart';
 import 'package:rick_and_morty_app/src/domain/repositories/repositories.dart';
 
-class LikeCharacter
-    extends UseCaseWithParams<Result<void, CharacterError>, Character> {
-  LikeCharacter({
+class GetFavorites
+    extends UseCaseWithoutParams<Result<List<Character>, CharacterError>> {
+  GetFavorites({
     required ICharacterRepository characterRepository,
   }) : _characterRepository = characterRepository;
 
   final ICharacterRepository _characterRepository;
+
+  Stream<Character> get characters => _characterRepository.characters;
+  Stream<int> get dislikedCharacters => _characterRepository.dislikedCharacters;
+
   @override
-  Future<Result<void, CharacterError>> execute(Character parameters) async {
-    return _characterRepository.likeCharacter(character: parameters);
+  Future<Result<List<Character>, CharacterError>> execute() async {
+    return _characterRepository.getFavoriteCharacters();
   }
 }

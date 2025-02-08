@@ -11,6 +11,17 @@ class CharacterModel extends Character {
     required super.gender,
   });
 
+  factory CharacterModel.fromEntity(Character entity) {
+    return CharacterModel(
+      id: entity.id,
+      name: entity.name,
+      status: entity.status,
+      type: entity.type,
+      image: entity.image,
+      gender: entity.gender,
+    );
+  }
+
   factory CharacterModel.fromMap(Map<String, dynamic> data) {
     return CharacterModel(
       id: data['id'] as int? ?? 0,
@@ -24,14 +35,14 @@ class CharacterModel extends Character {
     );
   }
 
-  CharacterModel toEntity() {
-    return CharacterModel(
-      id: super.id,
-      name: super.name,
-      status: super.status,
-      type: super.type,
-      image: super.image,
-      gender: super.gender,
+  Character toEntity() {
+    return Character(
+      id: id,
+      name: name,
+      status: status,
+      type: type,
+      image: image,
+      gender: gender,
     );
   }
 
@@ -39,11 +50,11 @@ class CharacterModel extends Character {
     return {
       'id': id,
       'name': name,
-      'status': status.toString(),
+      'status': CharacterStatusModel.values
+          .firstWhere((e) => e.toEntity() == status)
+          .value,
       'type': type,
       'image': image,
-      'gender': gender.toString(),
-      'liked': liked,
     };
   }
 }

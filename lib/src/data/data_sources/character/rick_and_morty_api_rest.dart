@@ -115,7 +115,7 @@ class RickAndMortyApiRest extends ICharacterApi {
             await _sharedPreferencesApi.getCachedCharactersPage1();
         if (cachedData != null && cachedData.items.isNotEmpty) {
           log(
-            '⚠️ Returning cached characters for page 1',
+            '🛠️ Returning cached characters for page 1',
             name: '$source.getCharacters',
           );
           return Success(cachedData);

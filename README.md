@@ -11,13 +11,13 @@ Rick And Morty App es una aplicación que utiliza la API de Rick and Morty para 
 
 ## Getting Started 🚀
 
-Este proyecto contiene 3 sabores:
+This project contains 3 flavors
 
 - development
 - staging
 - production
 
-Para ejecutar el sabor deseado, usa la configuración de lanzamiento en VSCode/Android Studio o usa los siguientes comandos:
+To run the desired flavor, use the launch configuration in VSCode/Android Studio or use the following commands:
 
 ```sh
 # Development

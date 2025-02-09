@@ -126,7 +126,6 @@ class RickAndMortyApiRest extends ICharacterApi {
         searchParametersModel: searchParametersModel,
       );
 
-      print(endpoint);
       final response = await _dioClient.get<DataMap>(endpoint);
 
       final data = response.data!;

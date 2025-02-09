@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -8,6 +10,7 @@ import 'package:rick_and_morty_app/core/typedefs/type_defs.dart';
 import 'package:rick_and_morty_app/src/data/data_sources/data_sources.dart';
 import 'package:rick_and_morty_app/src/data/models/character_model.dart';
 import 'package:rick_and_morty_app/src/data/models/paginated_data_model.dart';
+import 'package:rick_and_morty_app/src/data/models/search_parameters_model.dart';
 
 class RickAndMortyApiRest extends ICharacterApi {
   RickAndMortyApiRest()
@@ -108,6 +111,59 @@ class RickAndMortyApiRest extends ICharacterApi {
       log(
         '❌ Unknown exception for characters on page: $page, $e',
         name: '$source.getCharacters',
+      );
+      return Failure(CharacterErrorType.unknown);
+    }
+  }
+
+  @override
+  Future<Result<PaginatedDataModel<CharacterModel>, CharacterError>>
+      searchCharacters({
+    required SearchParametersModel searchParametersModel,
+  }) async {
+    try {
+      final endpoint = RickAndMortyEndpoints.searchCharacters(
+        searchParametersModel: searchParametersModel,
+      );
+
+      print(endpoint);
+      final response = await _dioClient.get<DataMap>(endpoint);
+
+      final data = response.data!;
+      switch (response.statusCode) {
+        case 404:
+          log(
+            '❌ Characters not found for search: $searchParametersModel',
+            name: '$source.searchCharacters',
+          );
+          return Failure(CharacterErrorType.notFound);
+        case 200:
+          final paginatedData = PaginatedDataModel<CharacterModel>.fromJson(
+            data,
+            CharacterModel.fromMap,
+          );
+          log(
+            '✅ Characters fetched successfully for search: $searchParametersModel',
+            name: '$source.searchCharacters',
+          );
+          return Success(paginatedData);
+        default:
+          log(
+            '❌ Unknown error for characters on search: $searchParametersModel',
+            name: '$source.searchCharacters',
+          );
+          return Failure(CharacterErrorType.unknown);
+      }
+    } on DioException catch (e) {
+      log(
+        '❌ DioException for characters on search: $searchParametersModel, ${e.characterErrorType}',
+        name: '$source.searchCharacters',
+      );
+      return Failure(e.characterErrorType);
+    } catch (e) {
+      log(
+        '❌ Unknown exception for characters on search: $searchParametersModel, $e',
+        name: '$source.searchCharacters',
       );
       return Failure(CharacterErrorType.unknown);
     }

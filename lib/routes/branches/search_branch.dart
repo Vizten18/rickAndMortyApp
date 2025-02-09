@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rick_and_morty_app/routes/branches/base_branch.dart';
 import 'package:rick_and_morty_app/routes/indexes/search_index.dart';
 import 'package:rick_and_morty_app/routes/shell_branches.dart';
+import 'package:rick_and_morty_app/src/presentation/character_detail/character_detail.dart';
 
 class SearchShellBranch implements AppBaseShellBranch {
   SearchShellBranch() : navigatorKey = GlobalKey<NavigatorState>();
@@ -28,7 +29,18 @@ class SearchShellBranch implements AppBaseShellBranch {
 
   @override
   List<RouteBase> rootRoutes(GlobalKey<NavigatorState> rootNavigatorKey) {
-    // TODO: implement getRootRoutes
-    throw UnimplementedError();
+    return [
+      GoRoute(
+        parentNavigatorKey: rootNavigatorKey,
+        path:
+            '${AppShellBranch.search.path}/${CharacterDetailPage.routeName}',
+        builder: (context, state) {
+          final queryParameters = state.uri.queryParameters;
+          final params = CharacterDetailParams.fromMap(queryParameters);
+
+          return CharacterDetailPage(params: params);
+        },
+      ),
+    ];
   }
 }

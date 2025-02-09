@@ -43,10 +43,7 @@ class CharacterCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Align(
-                  child: Hero(
-                    tag: character.id,
-                    child: EasyImage(imageUrl: character.image),
-                  ),
+                  child: EasyImage(imageUrl: character.image),
                 ),
                 const SizedBox(height: Constants.padding),
                 Text(

@@ -8,5 +8,9 @@
     "unexpectedErrorSubtitle": "Si el problema persiste, por favor contacte al soporte.",
     "emptyListTitle": "No se encontraron personajes.",
     "emptyListSubtitle": "No hay personajes para mostrar.",
-    "slideToDelete": "Puede deslizar para eliminar el personaje"
+    "slideToDelete": "Puede deslizar para eliminar el personaje",
+    "searchHintLabel": "Buscar un personaje",
+    "statusLabel": "Estatus",
+    "gendersLabel": "Géneros",
+    "filterLabel": "Filtros"
 }

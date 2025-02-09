@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rick_and_morty_app/core/helpers/navigation_animation.dart';
 import 'package:rick_and_morty_app/routes/branches/base_branch.dart';
 import 'package:rick_and_morty_app/routes/indexes/home_index.dart';
 import 'package:rick_and_morty_app/routes/shell_branches.dart';
@@ -23,9 +24,13 @@ class HomeShellBranch implements AppBaseShellBranch {
         GoRoute(
           name: AppShellBranch.home.routeName,
           path: AppShellBranch.home.path,
-          pageBuilder: (_, __) => const NoTransitionPage(
-            child: IndexHome(),
-          ),
+          pageBuilder: (context, state) {
+            return buildPageWithFadeTransition<CustomTransitionPage<dynamic>>(
+              context: context,
+              state: state,
+              child: const IndexHome(),
+            );
+          },
         ),
       ];
 

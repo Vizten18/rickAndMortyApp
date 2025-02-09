@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:rick_and_morty_app/core/errors/character_error.dart';
 import 'package:rick_and_morty_app/core/interfaces/result.dart';
 import 'package:rick_and_morty_app/core/typedefs/data_map.dart';
-import 'package:rick_and_morty_app/src/data/models/character_model.dart';
 import 'package:rick_and_morty_app/src/data/models/models.dart';
 import 'package:rick_and_morty_app/src/domain/entities/character.dart';
 import 'package:shared_preferences/shared_preferences.dart';

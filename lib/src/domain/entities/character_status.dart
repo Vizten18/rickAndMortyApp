@@ -36,4 +36,8 @@ enum CharacterStatus {
         return Colors.grey;
     }
   }
+
+  static List<CharacterStatus> get valuesList => CharacterStatus.values
+      .where((status) => status != CharacterStatus.none)
+      .toList();
 }

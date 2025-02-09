@@ -87,8 +87,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeOnScrollEndReached event,
     Emitter<HomeState> emit,
   ) async {
-    if (state.paginationStatus.isLoading || state.pageInfo?.nextPage == null)
+    if (state.paginationStatus.isLoading ||
+        (state.pageInfo?.nextPage.isEmpty ?? true)) {
       return;
+    }
 
     emit(state.copyWith(paginationStatus: HomeStatus.loading));
 

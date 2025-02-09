@@ -4,8 +4,10 @@ import 'dart:developer';
 import 'package:rick_and_morty_app/core/errors/character_error.dart';
 import 'package:rick_and_morty_app/core/interfaces/result.dart';
 import 'package:rick_and_morty_app/src/data/data_sources/data_sources.dart';
+import 'package:rick_and_morty_app/src/data/models/models.dart';
 import 'package:rick_and_morty_app/src/domain/entities/character.dart';
 import 'package:rick_and_morty_app/src/domain/entities/paginated_data.dart';
+import 'package:rick_and_morty_app/src/domain/entities/search_parameters.dart';
 import 'package:rick_and_morty_app/src/domain/repositories/repositories.dart';
 
 class CharacterRepository extends ICharacterRepository {
@@ -26,6 +28,8 @@ class CharacterRepository extends ICharacterRepository {
 
   @override
   Stream<Character> get characters => _likeCharacterStreamController.stream;
+
+  @override
   Stream<int> get dislikedCharacters =>
       _dislikeCharacterStreamController.stream;
 
@@ -98,5 +102,15 @@ class CharacterRepository extends ICharacterRepository {
     );
     final likedCharacters = await _sharedPreferencesApi.getLikedCharacters();
     return Success(likedCharacters);
+  }
+
+  @override
+  Future<Result<PaginatedData<Character>, CharacterError>> searchCharacters({
+    required SearchParameters searchParameters,
+  }) async {
+    log('📡 Trying to search characters', name: '$source.searchCharacters');
+    return _characterApi.searchCharacters(
+      searchParametersModel: SearchParametersModel.fromEntity(searchParameters),
+    );
   }
 }

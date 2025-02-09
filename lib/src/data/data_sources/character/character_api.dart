@@ -19,4 +19,12 @@ abstract class ICharacterApi {
   Future<Result<CharacterModel, CharacterError>> getCharacterById({
     required int id,
   });
+
+  /// Search characters by [searchParametersModel].
+  /// return a [PaginatedData<CharacteModel>] on success
+  /// or a [BaseError] on failure.
+  Future<Result<PaginatedDataModel<CharacterModel>, CharacterError>>
+      searchCharacters({
+    required SearchParametersModel searchParametersModel,
+  });
 }

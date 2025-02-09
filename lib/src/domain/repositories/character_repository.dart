@@ -44,4 +44,11 @@ abstract class ICharacterRepository {
   /// return a [List<Character>] on success
   /// or a [BaseError] on failure.
   Future<Result<List<Character>, CharacterError>> getFavoriteCharacters();
+
+  /// Search characters by [searchParameters].
+  /// return a [PaginatedData<Character>] on success
+  /// or a [BaseError] on failure.
+  Future<Result<PaginatedData<Character>, CharacterError>> searchCharacters({
+    required SearchParameters searchParameters,
+  });
 }

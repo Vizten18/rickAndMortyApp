@@ -34,12 +34,9 @@ class CharacterDetailBody extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Hero(
-                    tag: state.characterId,
-                    child: EasyImage(
-                      height: context.mediaQuery.size.height * 0.5,
-                      imageUrl: state.characterImage,
-                    ),
+                  EasyImage(
+                    height: context.mediaQuery.size.height * 0.5,
+                    imageUrl: state.characterImage,
                   ),
                   const Positioned(
                     top: 50,

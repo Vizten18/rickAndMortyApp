@@ -8,5 +8,9 @@
     "unexpectedErrorSubtitle": "If the problem persists, please contact support.",
     "emptyListTitle": "No characters found.",
     "emptyListSubtitle": "There are no characters to display.",
-    "slideToDelete": "You can slide to delete the character"
+    "slideToDelete": "You can slide to delete the character",
+    "searchHintLabel": "Search for a character",
+    "statusLabel": "Status",
+    "gendersLabel": "Genders",
+    "filterLabel": "Filters"
 }

@@ -5,6 +5,7 @@ import 'package:rick_and_morty_app/routes/branches/home_branch.dart';
 import 'package:rick_and_morty_app/routes/branches/search_branch.dart';
 import 'package:rick_and_morty_app/routes/index.dart';
 import 'package:rick_and_morty_app/routes/shell_branches.dart';
+import 'package:rick_and_morty_app/src/presentation/splash/splash.dart';
 
 /// {@template app_router}
 /// The root router for the app. Call [AppRouter.router] to get the router.
@@ -23,8 +24,14 @@ class AppRouter {
   static GoRouter router({bool debug = false}) => GoRouter(
         navigatorKey: rootNavigatorKey,
         debugLogDiagnostics: debug,
-        initialLocation: AppShellBranch.values.first.path,
+        initialLocation: SplashPage.path,
         routes: [
+          GoRoute(
+            parentNavigatorKey: rootNavigatorKey,
+            path: SplashPage.path,
+            builder: (_, __) => const SplashPage(),
+          ),
+
           /// StatefulShellRoute.indexedStack handles the stack of routes of
           /// the bottom navigation bar.
           StatefulShellRoute.indexedStack(

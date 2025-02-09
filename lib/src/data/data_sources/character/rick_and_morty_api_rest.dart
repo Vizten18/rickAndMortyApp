@@ -22,6 +22,7 @@ class RickAndMortyApiRest extends ICharacterApi {
         );
   final DioClient _dioClient;
   final String source = 'RickAndMortyApiRest';
+  final SharedPreferencesApi _sharedPreferencesApi = SharedPreferencesApi();
 
   @override
   Future<Result<CharacterModel, CharacterError>> getCharacterById({
@@ -93,6 +94,9 @@ class RickAndMortyApiRest extends ICharacterApi {
             '✅ Characters fetched successfully for page: $page',
             name: '$source.getCharacters',
           );
+          if (page == 1) {
+            await _sharedPreferencesApi.cacheCharactersPage1(paginatedData);
+          }
           return Success(paginatedData);
         default:
           log(
@@ -106,12 +110,34 @@ class RickAndMortyApiRest extends ICharacterApi {
         '❌ DioException for characters on page: $page, ${e.characterErrorType}',
         name: '$source.getCharacters',
       );
+      if (page == 1) {
+        final cachedData =
+            await _sharedPreferencesApi.getCachedCharactersPage1();
+        if (cachedData != null && cachedData.items.isNotEmpty) {
+          log(
+            '⚠️ Returning cached characters for page 1',
+            name: '$source.getCharacters',
+          );
+          return Success(cachedData);
+        }
+      }
       return Failure(e.characterErrorType);
     } catch (e) {
       log(
         '❌ Unknown exception for characters on page: $page, $e',
         name: '$source.getCharacters',
       );
+      if (page == 1) {
+        final cachedData =
+            await _sharedPreferencesApi.getCachedCharactersPage1();
+        if (cachedData != null && cachedData.items.isNotEmpty) {
+          log(
+            '⚠️ Returning cached characters for page 1',
+            name: '$source.getCharacters',
+          );
+          return Success(cachedData);
+        }
+      }
       return Failure(CharacterErrorType.unknown);
     }
   }

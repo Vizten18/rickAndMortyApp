@@ -13,13 +13,14 @@ import 'package:rick_and_morty_app/src/data/models/paginated_data_model.dart';
 import 'package:rick_and_morty_app/src/data/models/search_parameters_model.dart';
 
 class RickAndMortyApiRest extends ICharacterApi {
-  RickAndMortyApiRest()
-      : _dioClient = DioClient(
-          baseUrl: RickAndMortyEndpoints.baseUrl,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        );
+  RickAndMortyApiRest({DioClient? dioClient})
+      : _dioClient = dioClient ??
+            DioClient(
+              baseUrl: RickAndMortyEndpoints.baseUrl,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            );
   final DioClient _dioClient;
   final String source = 'RickAndMortyApiRest';
   final SharedPreferencesApi _sharedPreferencesApi = SharedPreferencesApi();

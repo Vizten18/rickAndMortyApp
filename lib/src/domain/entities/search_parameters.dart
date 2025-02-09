@@ -37,4 +37,10 @@ class SearchParameters extends Equatable {
       page: page ?? this.page,
     );
   }
+
+  const SearchParameters.empty()
+      : name = '',
+        status = CharacterStatus.none,
+        gender = GenderType.none,
+        page = 1;
 }

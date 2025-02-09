@@ -5,6 +5,7 @@ class PageInfoModel extends PageInfo {
     required super.nextPage,
     required super.prevPage,
   });
+  const PageInfoModel.empty() : super(nextPage: '', prevPage: '');
 
   factory PageInfoModel.fromJson(Map<String, dynamic> data) {
     return PageInfoModel(

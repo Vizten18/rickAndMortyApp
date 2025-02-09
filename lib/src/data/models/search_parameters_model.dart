@@ -17,6 +17,14 @@ class SearchParametersModel extends SearchParameters {
     );
   }
 
+  factory SearchParametersModel.empty() {
+    return const SearchParametersModel(
+      name: '',
+      status: CharacterStatus.none,
+      gender: GenderType.none,
+    );
+  }
+
   Map<String, String> toQueryParameters() {
     final queryParams = <String, String>{};
 

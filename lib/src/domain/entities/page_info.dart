@@ -14,4 +14,8 @@ class PageInfo extends Equatable {
         nextPage,
         prevPage,
       ];
+
+  const PageInfo.empty()
+      : nextPage = '',
+        prevPage = '';
 }

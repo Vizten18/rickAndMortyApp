@@ -10,6 +10,15 @@ class CharacterModel extends Character {
     required super.image,
     required super.gender,
   });
+  CharacterModel.empty()
+      : super(
+          id: 0,
+          name: '',
+          status: CharacterStatusModel.unknown.toEntity(),
+          type: '',
+          image: '',
+          gender: GenderTypeModel.unknown.toEntity(),
+        );
 
   factory CharacterModel.fromEntity(Character entity) {
     return CharacterModel(

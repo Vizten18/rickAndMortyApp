@@ -18,8 +18,20 @@ class SearchBody extends StatelessWidget {
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         if (state.status.isFailure) {
-          return CharacterErrorBuilder(
-            errorType: state.error!.characterErrorType,
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(Constants.margin),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SearchInput(),
+                    CharacterErrorBuilder(
+                      errorType: state.error!.characterErrorType,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           );
         }
 
@@ -29,7 +41,7 @@ class SearchBody extends StatelessWidget {
             child: Column(
               children: [
                 SearchInput(),
-                SearchList(),
+                Expanded(child: SearchList()),
               ],
             ),
           ),

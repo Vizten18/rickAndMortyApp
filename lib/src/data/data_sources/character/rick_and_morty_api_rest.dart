@@ -146,6 +146,7 @@ class RickAndMortyApiRest extends ICharacterApi {
       final response = await _dioClient.get<DataMap>(endpoint);
 
       final data = response.data!;
+
       switch (response.statusCode) {
         case 404:
           log(

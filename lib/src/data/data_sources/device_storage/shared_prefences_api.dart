@@ -4,12 +4,14 @@ import 'package:rick_and_morty_app/core/errors/character_error.dart';
 import 'package:rick_and_morty_app/core/interfaces/result.dart';
 import 'package:rick_and_morty_app/core/typedefs/data_map.dart';
 import 'package:rick_and_morty_app/src/data/models/character_model.dart';
+import 'package:rick_and_morty_app/src/data/models/models.dart';
 import 'package:rick_and_morty_app/src/domain/entities/character.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesApi {
   static const String likedCharactersKey = 'likedCharacters';
   static const String likedCharactersListKey = 'likedCharactersList';
+  static const String cachedCharactersPage1Key = 'cachedCharactersPage1';
 
   Future<List<int>> getLikedCharacterIds() async {
     final prefs = await SharedPreferences.getInstance();
@@ -76,5 +78,30 @@ class SharedPreferencesApi {
   Future<bool> isCharacterLiked(int id) async {
     final likedCharacters = await getLikedCharacterIds();
     return likedCharacters.contains(id);
+  }
+
+  Future<void> cacheCharactersPage1(
+    PaginatedDataModel<CharacterModel> data,
+  ) async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = jsonEncode(
+      data.toMap(
+        (character) => character.toMap(),
+      ),
+    );
+    await prefs.setString(cachedCharactersPage1Key, jsonData);
+  }
+
+  Future<PaginatedDataModel<CharacterModel>?> getCachedCharactersPage1() async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(cachedCharactersPage1Key);
+    if (jsonData != null) {
+      final dataMap = jsonDecode(jsonData) as DataMap;
+      return PaginatedDataModel<CharacterModel>.fromJson(
+        dataMap,
+        CharacterModel.fromMap,
+      );
+    }
+    return null;
   }
 }

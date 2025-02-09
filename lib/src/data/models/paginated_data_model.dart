@@ -20,4 +20,11 @@ class PaginatedDataModel<T> extends PaginatedData<T> {
           .toList(),
     );
   }
+
+  Map<String, dynamic> toMap(Map<String, dynamic> Function(T) toJson) {
+    return {
+      'info': (pageInfo as PageInfoModel).toMap(),
+      'results': items.map((e) => toJson(e)).toList(),
+    };
+  }
 }

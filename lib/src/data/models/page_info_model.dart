@@ -12,4 +12,11 @@ class PageInfoModel extends PageInfo {
       prevPage: data['prev'] as String? ?? '',
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'next': nextPage,
+      'prev': prevPage,
+    };
+  }
 }

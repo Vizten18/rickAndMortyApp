@@ -3,9 +3,9 @@
 
 ## Overview
 
-Rick And Morty App es una aplicación que utiliza la API de Rick and Morty para mostrar información sobre los personajes, episodios y ubicaciones de la serie. La aplicación está desarrollada en Flutter y soporta múltiples plataformas como iOS, Android.
+Rick And Morty App is an application that uses the Rick and Morty API to display information about the characters. The application is developed in Flutter and supports multiple platforms such as iOS and Android.
 
-## Requisitos
+## Requirements
 
 - Flutter 3.27.4
 

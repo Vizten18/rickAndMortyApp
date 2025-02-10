@@ -17,31 +17,17 @@ class SearchBody extends StatelessWidget {
     return BlocBuilder<SearchBloc, SearchState>(
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
-        if (state.status.isFailure) {
-          return SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(Constants.margin),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SearchInput(),
-                    CharacterErrorBuilder(
-                      errorType: state.error!.characterErrorType,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        }
-
-        return const SafeArea(
+        return SafeArea(
           child: Padding(
-            padding: EdgeInsets.all(Constants.margin),
+            padding: const EdgeInsets.all(Constants.margin),
             child: Column(
               children: [
-                SearchInput(),
-                Expanded(child: SearchList()),
+                const SearchInput(),
+                if (state.status.isFailure)
+                  CharacterErrorBuilder(
+                    errorType: state.error!.characterErrorType,
+                  ),
+                SearchList(),
               ],
             ),
           ),
